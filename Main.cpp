@@ -4,19 +4,44 @@
 #include <ctime>
 using std::string;
 
+//Calling the functions to not get errors, when declaring at the end
 char ChoosePlayerMove();
 char ChooseComputerMove();
-void DecideWinner(char player, char computer);
+int DecideWinner(char player, char computer);
 
-
+//Main function
 int main()
 {
-    char player = ChoosePlayerMove();
-	char computer = ChooseComputerMove();
-	DecideWinner(player, computer);
-	
+	//Declaring the necessary variables
+	bool running = true;
+	float score = 0;
+	//Game loop
+	while (running)
+	{
+		char player = ChoosePlayerMove();
+		char computer = ChooseComputerMove();
+		int Winner = DecideWinner(player, computer);
+		//Gives the player the score
+		if (Winner == 1)
+		{
+			score += 1;
+		}
+		else if (Winner == 0)
+		{
+			score -= 1;
+		}
+		else
+		{
+			score -= 0.25;
+		}
+		std::cout << "Your score is: " << score << std::endl;
+	}
 }
 
+//Functions
+
+
+//Lets the player input their move
 char ChoosePlayerMove()
 {
 	char choice;
@@ -29,10 +54,11 @@ char ChoosePlayerMove()
 	}
 	else
 	{
-		std::cout << "Invalid choice";
+		std::cout << "Invalid choice\n";
 	}
 }
 
+//Chooses a random number between 3, which gets converted to a variable of the type char
 char ChooseComputerMove()
 {
 	srand(time(NULL));
@@ -48,18 +74,23 @@ char ChooseComputerMove()
 	}
 }
 
-void DecideWinner(char player, char computer)
+
+//Uses std::cout to say the winner and gives return value, which is being turned into your score
+int DecideWinner(char player, char computer)
 {
 	if(computer == 'r' && player == 's' || computer == 'p' && player == 'r' || computer == 's' && player == 'p')
 	{
 		std::cout << "The Computer won!\n";
+		return 0;
 	}
 	else if(computer == player)
 	{
 		std::cout << "The game ended in a tie!\n";
+		return -1;
 	}
 	else
 	{
 		std::cout << "You won!\n";
+		return 1;
 	}
 }
