@@ -49,7 +49,13 @@ while running:
     elif Winner == -1:
         score -= 0.25
 
-    print(f"The computer choose {computer}")
+    if computer == 'r':
+        print("The computer choose Rock")
+    elif computer == 'p':
+        print("The computer choose Paper")
+    else:
+        print("The computer choose Scissors")
+    
     quit = input("Would you like to continue? (y)es/(n)o or show (s)core")
     if quit == 'y':
         continue
